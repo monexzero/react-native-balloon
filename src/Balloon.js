@@ -182,9 +182,18 @@ export default class Balloon extends Component {
       ...attributes
     } = this.props;
 
-    const Component = onPress || onLongPress ? TouchableOpacity : View;
+    let _props    = {};
+    let Component = View;
+
+    if(onPress || onLongPress) {
+      _props = {
+        onPress,
+        onLongPress,
+      };
+      Component = TouchableOpacity;
+    }
     return (
-      <Component style={styles.container}>
+      <Component style={styles.container} {..._props}>
         <View
           style={[
             styles.balloonContainer,
